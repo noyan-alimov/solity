@@ -1,15 +1,13 @@
-import { Session } from '@supabase/supabase-js'
 import React, { useState, useEffect } from 'react'
 import { Button } from '../components/Button'
 import { InputWithLabel } from '../components/InputWithLabel'
 import { Layout } from '../components/Layout'
+import { useUser } from '../context/UserContext'
 import { supabase } from '../supabaseClient'
 
-interface props {
-    session?: Session
-}
+export const Account = () => {
+  const { session } = useUser()
 
-export const Account = ({ session }: props) => {
   const [loading, setLoading] = useState<boolean>(false)
   const [username, setUsername] = useState<string>('')
   const [website, setWebsite] = useState<string>('')
