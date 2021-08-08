@@ -5,27 +5,18 @@ import tailwind from 'tailwind-rn'
 import { Button } from '../components/Button'
 import { InputWithLabel } from '../components/InputWithLabel'
 import { Layout } from '../components/Layout'
-import { supabase } from '../supabaseClient'
+import { signUp } from '../fetchers/signUp'
 
 interface props {
   navigation: NavigationProp<any>
 }
 
 export const SignUp = ({ navigation }: props) => {
-  const [loading, setLoading] = useState<boolean>(false)
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
 
-  const handleSignUp = async () => {
-    try {
-      setLoading(true)
-      const { error } = await supabase.auth.signUp({ email, password })
-      setLoading(false)
-      if (error) throw error
-    } catch (error) {
-      alert(error.error_description || error.message)
-      setLoading(false)
-    }
+  const handleSignUp = () => {
+    signUp(email, password)
   }
 
   return (
@@ -46,7 +37,6 @@ export const SignUp = ({ navigation }: props) => {
             text='sign up'
             onPress={handleSignUp}
             type='primary'
-            loading={loading}
           />
         </View>
     </Layout>

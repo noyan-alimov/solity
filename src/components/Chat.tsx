@@ -5,9 +5,11 @@ import tailwind from 'tailwind-rn'
 
 interface props {
     username: string
+    navigateToChatSession: () => void
 }
 
-export const Chat = ({ username }: props) => {
+export const Chat = ({ username, navigateToChatSession }: props) => {
+
     return (
         <View style={tailwind('flex-row w-full my-6')}>
             <AntDesign
@@ -22,6 +24,7 @@ export const Chat = ({ username }: props) => {
                 name='rightcircle'
                 size={48}
                 color='#DB2777'
+                onPress={navigateToChatSession}
             />
         </View>
     )

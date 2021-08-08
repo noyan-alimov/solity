@@ -12,7 +12,6 @@ interface props {
 }
 
 export const SignIn = ({ navigation }: props) => {
-  const [loading, setLoading] = useState<boolean>(false)
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
 
@@ -22,13 +21,10 @@ export const SignIn = ({ navigation }: props) => {
 
   const handleSignIn = async () => {
     try {
-      setLoading(true)
       const { error } = await supabase.auth.signIn({ email, password })
-      setLoading(false)
       if (error) throw error
     } catch (error) {
       alert(error.error_description || error.message)
-      setLoading(false)
     }
   }
 
@@ -50,7 +46,6 @@ export const SignIn = ({ navigation }: props) => {
             text='sign in'
             onPress={handleSignIn}
             type='primary'
-            loading={loading}
           />
           <Text style={tailwind('mt-10 text-green-500 text-xl')}>don't have an account?</Text>
           <Button

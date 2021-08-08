@@ -8,13 +8,16 @@ interface props {
     type: 'primary' | 'outlined'
     loading?: boolean
     marginTop?: string
+    alignItems?: string
+    notRounded?: boolean
+    width?: string
 }
 
-export const Button = ({ text, onPress, type, loading, marginTop }: props) => {
+export const Button = ({ text, onPress, type, loading, marginTop, alignItems, notRounded, width }: props) => {
     return (
-        <View style={tailwind(`items-center mt-${marginTop ? marginTop : '10'}`)}>
+        <View style={tailwind(`items-${alignItems ? alignItems : 'center'} mt-${marginTop ? marginTop : '10'} ${width ? width : ''}`)}>
             <TouchableOpacity
-                style={tailwind(`items-center rounded-md px-6 py-2 ${type === 'primary' ? 'bg-green-700' : 'border border-green-700'}`)}
+                style={tailwind(`items-center ${notRounded ? '' : 'rounded-md'} px-6 py-2 ${type === 'primary' ? 'bg-green-700' : 'border border-green-700'}`)}
                 disabled={loading}
                 onPress={onPress}
             >

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useMemo } from 'react'
 import { Button } from '../components/Button'
 import { InputWithLabel } from '../components/InputWithLabel'
 import { Layout } from '../components/Layout'
@@ -54,7 +55,8 @@ export const Account = () => {
         username,
         website,
         avatar_url,
-        updated_at: new Date()
+        updated_at: new Date(),
+        email: session?.user?.email
       }
 
       let { error } = await supabase.from('profiles').upsert(updates, {
@@ -70,13 +72,18 @@ export const Account = () => {
     }
   }
 
-  
+  const email = useMemo(() => {
+    if (!session) return ''
+    if (!session.user) return ''
 
+    return session.user.email
+  }, [session])
+  
   return (
     <Layout>
         <InputWithLabel
             label='email'
-            value={session?.user?.email ? session.user.email : ''}
+            value={email ? email : ''}
             disabled
             marginTop={'20'}
         />
